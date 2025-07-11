@@ -72,7 +72,7 @@ function renderRecipes(recipes) {
                 <img src="${recipe.strMealThumb}" alt="mealthumb" class="card-img-top">
                 <div class="card-body border-top">
                     <p class="card-text mb-0">${recipe.strMeal}</p>
-                    <span class="badge text-bg-warning">${recipe.strCategory}</span>
+                    ${getTags(recipe)}
                 </div>
             </div>
         </div>`;
@@ -92,10 +92,15 @@ function renderRecipeDetail(recipeDetail) {
 
 function getTags(recipeDetail) {
     let tags = '';
-    const tagsArray = recipeDetail.strTags.split(',');
-    tagsArray.forEach((tag) => {
-        tags += `<span class="badge text-bg-warning">${tag}</span> `;
-    });
+    try {
+        const tagsArray = recipeDetail.strTags.split(',');
+        tagsArray.forEach((tag) => {
+            tags += `<span class="badge text-bg-warning">${tag}</span> `;
+        });
+    }
+    catch {
+        tags = '';
+    }
     return tags;
 }
 
