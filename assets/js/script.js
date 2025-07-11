@@ -34,7 +34,7 @@ function renderRecipes(recipes) {
     let contents = '';
     recipes.forEach(recipe => {
         contents += `<div class="col-6 col-md-4 col-lg-3 col-xl-2">
-            <div class="card h-100">
+            <div class="card h-100 recipe-card">
                 <img src="${recipe.strMealThumb}" alt="mealthumb" class="card-img-top">
                 <div class="card-body border-top">
                     <p class="card-text mb-0">${recipe.strMeal}</p>
