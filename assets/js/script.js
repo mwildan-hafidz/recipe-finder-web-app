@@ -4,6 +4,8 @@ const recipesContainer = document.querySelector('#recipes-container');
 
 searchBtn.addEventListener('click', async () => {
     const search = recipeNameInput.value;
+    if (search.trim() === '') return;
+
     const recipes = await getRecipes(search);
     renderRecipes(recipes);
 });
