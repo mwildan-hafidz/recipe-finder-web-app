@@ -36,9 +36,61 @@
         <div class="row g-2" id="recipes-container"></div>
     </div>
 
+    <!-- Footer -->
     <div class="container-fluid py-3 bg-warning">
         <p class="text-center mb-0">Copyright &copy; 2025 M. Wildan Hafidz. <br><a href="https://github.com/mwildan-hafidz" class="text-dark">GitHub</a> | All rights reserved.</p>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="recipe-detail-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Recipe</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body placeholder-glow">
+                    <div class="row">
+                        <div class="col-4 fw-bold">Name</div>
+                        <div class="col-auto fw-bold">:</div>
+                        <div class="col" id="detail-name"><span class="placeholder col-6"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 fw-bold">Category</div>
+                        <div class="col-auto fw-bold">:</div>
+                        <div class="col" id="detail-category"><span class="placeholder col-8"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 fw-bold">Area</div>
+                        <div class="col-auto fw-bold">:</div>
+                        <div class="col" id="detail-area"><span class="placeholder col-5"></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 fw-bold">Tags</div>
+                        <div class="col-auto fw-bold">:</div>
+                        <div class="col" id="detail-tags">
+                            <span class="placeholder col-3"></span>
+                            <span class="placeholder col-2"></span>
+                            <span class="placeholder col-4"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 fw-bold">Instructions</div>
+                        <div class="col-auto fw-bold">:</div>
+                        <div class="col" id="detail-instructions">
+                            <span class="placeholder col-11"></span>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-9"></span>
+                            <span class="placeholder col-12"></span>
+                            <span class="placeholder col-8"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
     <script src="assets/js/bootstrap.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
