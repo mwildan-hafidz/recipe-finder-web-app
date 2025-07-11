@@ -2,6 +2,14 @@ const recipeNameInput = document.querySelector('#recipe-name-input');
 const searchBtn = document.querySelector('#search-btn');
 const recipesContainer = document.querySelector('#recipes-container');
 
+const modal = document.querySelector('#recipe-detail-modal');
+const detailName = modal.querySelector('#detail-name');
+const detailCategory = modal.querySelector('#detail-category');
+const detailArea = modal.querySelector('#detail-area');
+const detailTags = modal.querySelector('#detail-tags');
+const detailIngredients = modal.querySelector('#detail-ingredients');
+const detailInstructions = modal.querySelector('#detail-instructions');
+
 searchBtn.addEventListener('click', async () => {
     const search = recipeNameInput.value;
     if (search.trim() === '') return;
@@ -72,21 +80,26 @@ function renderRecipes(recipes) {
     recipesContainer.innerHTML = contents;
 }
 
-const modal = document.querySelector('#recipe-detail-modal');
-const detailName = modal.querySelector('#detail-name');
-const detailCategory = modal.querySelector('#detail-category');
-const detailArea = modal.querySelector('#detail-area');
-const detailTags = modal.querySelector('#detail-tags');
-const detailIngredients = modal.querySelector('#detail-ingredients');
-const detailInstructions = modal.querySelector('#detail-instructions');
-
 function renderRecipeDetail(recipeDetail) {
+    detailName.innerHTML = recipeDetail.strMeal;
+    detailCategory.innerHTML = recipeDetail.strCategory;
+    detailArea.innerHTML = recipeDetail.strArea;
+    detailTags.innerHTML = getTags(recipeDetail);
+    detailIngredients.innerHTML = getIngredients(recipeDetail);
+    detailInstructions.innerHTML = getInstructions(recipeDetail);
+}
+
+
+function getTags(recipeDetail) {
     let tags = '';
     const tagsArray = recipeDetail.strTags.split(',');
     tagsArray.forEach((tag) => {
         tags += `<span class="badge text-bg-warning">${tag}</span> `;
     });
+    return tags;
+}
 
+function getIngredients(recipeDetail) {
     let ingredients = '<ol>';
     let i = 1;
     while (true) {
@@ -94,22 +107,19 @@ function renderRecipeDetail(recipeDetail) {
         const measure = recipeDetail[`strMeasure${i}`];
 
         if (ingredient === '' || measure === '') break;
-        
+
         ingredients += `<li>${ingredient} (${measure})</li>`;
         i++;
     }
     ingredients += '</ol>';
+    return ingredients;
+}
 
+function getInstructions(recipeDetail) {
     let instructions = '';
     const instructionsArray = recipeDetail.strInstructions.split('\r\n');
     instructionsArray.forEach((instruction) => {
         instructions += `<p>${instruction}</p>`;
     });
-
-    detailName.innerHTML = recipeDetail.strMeal;
-    detailCategory.innerHTML = recipeDetail.strCategory;
-    detailArea.innerHTML = recipeDetail.strArea;
-    detailTags.innerHTML = tags;
-    detailIngredients.innerHTML = ingredients;
-    detailInstructions.innerHTML = instructions;
+    return instructions;
 }
