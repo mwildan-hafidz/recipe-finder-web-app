@@ -6,7 +6,48 @@
     <title>Recipe Finder</title>
     <link rel="stylesheet" href="assets/css/bootstrap.css">
 </head>
-<body>
+<body class="min-vh-100 d-flex flex-column">
+    <!-- Navbar -->
+    <nav class="navbar bg-warning">
+        <div class="container-fluid">
+            <h1 class="navbar-brand mb-0 fw-bold">Recipe Finder</h1>
+        </div>
+    </nav>
+
+    <!-- User Inputs -->
+    <div class="container py-3">
+        <div class="row g-2">
+            <div>
+                <input type="text" class="form-control" id="input-recipe-name" placeholder="Look for recipe...">
+            </div>
+            <div>
+                <button class="btn btn-warning float-end">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <hr class="m-0">
+    </div>
+
+    <!-- Recipes -->
+    <div class="container py-3 flex-fill">
+        <div class="row g-2" id="recipes-container">
+            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                <div class="card">
+                    <img src="https://www.themealdb.com/images/media/meals/ysxwuq1487323065.jpg/medium" alt="mealthumb" class="card-img-top">
+                    <div class="card-body border-top">
+                        <p class="card-text mb-0">Recipe Name</p>
+                        <span class="badge text-bg-warning">Tag</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-3 bg-warning">
+        <p class="text-center mb-0">Copyright &copy; 2025 M. Wildan Hafidz. <br><a href="https://github.com/mwildan-hafidz" class="text-dark">GitHub</a> | All rights reserved.</p>
+    </div>
     <script src="assets/js/bootstrap.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
