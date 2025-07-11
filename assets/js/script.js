@@ -17,10 +17,20 @@ function getRecipes(name) {
         })
         .then((json) => {
             return json.meals;
+        })
+        .catch((err) => {
+            throw err;
         });
 }
 
 function renderRecipes(recipes) {
+    if (!recipes) {
+        recipesContainer.innerHTML = `<div class="col-12 text-center text-body-tertiary">
+            <div class="h1 fw-bold">Recipe Not Found</div>
+        </div>`;
+        return;
+    }
+    
     let contents = '';
     recipes.forEach(recipe => {
         contents += `<div class="col-6 col-md-4 col-lg-3 col-xl-2">
@@ -31,7 +41,7 @@ function renderRecipes(recipes) {
                     <span class="badge text-bg-warning">${recipe.strCategory}</span>
                 </div>
             </div>
-        </div>`
+        </div>`;
     });
     recipesContainer.innerHTML = contents;
 }
