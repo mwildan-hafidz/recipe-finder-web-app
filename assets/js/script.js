@@ -1,4 +1,5 @@
 const recipeNameInput = document.querySelector('#recipe-name-input');
+const categorySelect = document.querySelector('#category-select');
 const searchBtn = document.querySelector('#search-btn');
 const recipesContainer = document.querySelector('#recipes-container');
 
@@ -13,13 +14,22 @@ const detailInstructions = modal.querySelector('#detail-instructions');
 
 const alertContainer = document.querySelector('#alert-container');
 
+document.addEventListener('DOMContentLoaded', async () => {
+    const categories = await getCategories();
+    renderCategorySelect(categories);
+});
+
 searchBtn.addEventListener('click', async () => {
     const search = recipeNameInput.value;
     if (search.trim() === '') return;
 
     try {
         const recipes = await getRecipes(search);
-        renderRecipes(recipes);
+        const filteredRecipes = recipes.filter((recipe) => {
+            if (categorySelect.value === 'none') return true;
+            return recipe.strCategory === categorySelect.value;
+        });
+        renderRecipes(filteredRecipes);
     }
     catch (err) {
         addAlert(err);
@@ -76,6 +86,22 @@ function getRecipeDetail(id) {
         });
 }
 
+async function getCategories() {
+    const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+    const categories = await fetch(url)
+        .then((res) => {
+            if (!res.ok) throw new Error(res.statusText);
+            return res.json();
+        })
+        .then((json) => {
+            return json.meals;
+        })
+        .catch((err) => {
+            throw err;
+        });
+    return categories;
+}
+
 function renderRecipes(recipes) {
     if (!recipes) {
         recipesContainer.innerHTML = `<div class="col-12 text-center text-body-tertiary">
@@ -108,6 +134,14 @@ function renderRecipeDetail(recipeDetail) {
     detailInstructions.innerHTML = getInstructions(recipeDetail);
 }
 
+function renderCategorySelect(categories) {
+    let contents = '<option value="none" selected>Category</option>';
+    categories.forEach((category) => {
+        contents += `<option value="${category.strCategory}">${category.strCategory}</option>`;
+    });
+
+    categorySelect.innerHTML = contents;
+}
 
 function getTags(recipeDetail) {
     let tags = '';
