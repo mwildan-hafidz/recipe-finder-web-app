@@ -1,5 +1,6 @@
 const recipeNameInput = document.querySelector('#recipe-name-input');
 const categorySelect = document.querySelector('#category-select');
+const areaSelect = document.querySelector('#area-select');
 const searchBtn = document.querySelector('#search-btn');
 const recipesContainer = document.querySelector('#recipes-container');
 
@@ -16,7 +17,9 @@ const alertContainer = document.querySelector('#alert-container');
 
 document.addEventListener('DOMContentLoaded', async () => {
     const categories = await getCategories();
+    const areas = await getAreas();
     renderCategorySelect(categories);
+    renderAreaSelect(areas);
 });
 
 searchBtn.addEventListener('click', async () => {
@@ -25,10 +28,15 @@ searchBtn.addEventListener('click', async () => {
 
     try {
         const recipes = await getRecipes(search);
-        const filteredRecipes = recipes.filter((recipe) => {
-            if (categorySelect.value === 'none') return true;
-            return recipe.strCategory === categorySelect.value;
-        });
+        const filteredRecipes = recipes
+            .filter((recipe) => {
+                if (categorySelect.value === 'none') return true;
+                return recipe.strCategory === categorySelect.value;
+            })
+            .filter((recipe) => {
+                if (areaSelect.value === 'none') return true;
+                return recipe.strArea === areaSelect.value;
+            });
         renderRecipes(filteredRecipes);
     }
     catch (err) {
@@ -86,9 +94,9 @@ function getRecipeDetail(id) {
         });
 }
 
-async function getCategories() {
+function getCategories() {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-    const categories = await fetch(url)
+    const categories = fetch(url)
         .then((res) => {
             if (!res.ok) throw new Error(res.statusText);
             return res.json();
@@ -100,6 +108,22 @@ async function getCategories() {
             throw err;
         });
     return categories;
+}
+
+function getAreas() {
+    const url = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+    const areas = fetch(url)
+        .then((res) => {
+            if (!res.ok) throw new Error(res.statusText);
+            return res.json();
+        })
+        .then((json) => {
+            return json.meals;
+        })
+        .catch((err) => {
+            throw err;
+        });
+    return areas;
 }
 
 function renderRecipes(recipes) {
@@ -139,8 +163,15 @@ function renderCategorySelect(categories) {
     categories.forEach((category) => {
         contents += `<option value="${category.strCategory}">${category.strCategory}</option>`;
     });
-
     categorySelect.innerHTML = contents;
+}
+
+function renderAreaSelect(areas) {
+    let contents = '<option value="none" selected>Area</option>';
+    areas.forEach((area) => {
+        contents += `<option value="${area.strArea}">${area.strArea}</option>`;
+    });
+    areaSelect.innerHTML = contents;
 }
 
 function getTags(recipeDetail) {
