@@ -28,15 +28,7 @@ searchBtn.addEventListener('click', async () => {
 
     try {
         const recipes = await getRecipes(search);
-        const filteredRecipes = recipes
-            .filter((recipe) => {
-                if (categorySelect.value === 'none') return true;
-                return recipe.strCategory === categorySelect.value;
-            })
-            .filter((recipe) => {
-                if (areaSelect.value === 'none') return true;
-                return recipe.strArea === areaSelect.value;
-            });
+        const filteredRecipes = filterRecipes(recipes);
         renderRecipes(filteredRecipes);
     }
     catch (err) {
@@ -211,6 +203,18 @@ function getInstructions(recipeDetail) {
         instructions += `<p>${instruction}</p>`;
     });
     return instructions;
+}
+
+function filterRecipes(recipes) {
+    return recipes
+        .filter((recipe) => {
+            if (categorySelect.value === 'none') return true;
+            return recipe.strCategory === categorySelect.value;
+        })
+        .filter((recipe) => {
+            if (areaSelect.value === 'none') return true;
+            return recipe.strArea === areaSelect.value;
+        });
 }
 
 function addAlert(msg) {
