@@ -3,6 +3,7 @@ const searchBtn = document.querySelector('#search-btn');
 const recipesContainer = document.querySelector('#recipes-container');
 
 const modal = document.querySelector('#recipe-detail-modal');
+const modalCloseBtn = modal.querySelector('#modal-close-btn');
 const detailName = modal.querySelector('#detail-name');
 const detailCategory = modal.querySelector('#detail-category');
 const detailArea = modal.querySelector('#detail-area');
@@ -25,6 +26,17 @@ document.body.addEventListener('click', async (e) => {
     const id = recipeCard.dataset.recipeid;
     const recipeDetail = await getRecipeDetail(id);
     renderRecipeDetail(recipeDetail);
+});
+
+modalCloseBtn.addEventListener('click', () => {
+    setTimeout(() => {
+        detailName.innerHTML = '<span class="placeholder col-6"></span>';
+        detailCategory.innerHTML = '<span class="placeholder col-8"></span>';
+        detailArea.innerHTML = '<span class="placeholder col-5"></span>';
+        detailTags.innerHTML = '<span class="placeholder col-3"></span><span class="placeholder col-2"></span><span class="placeholder col-4"></span>';
+        detailIngredients.innerHTML = '<span class="placeholder col-7"></span><span class="placeholder col-10"></span><span class="placeholder col-9"></span><span class="placeholder col-6"></span><span class="placeholder col-10"></span>';
+        detailInstructions.innerHTML = '<span class="placeholder col-11"></span><span class="placeholder col-12"></span><span class="placeholder col-9"></span><span class="placeholder col-12"></span><span class="placeholder col-8"></span>';
+    }, 100);
 });
 
 function getRecipes(name) {
