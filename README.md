@@ -5,6 +5,7 @@ A simple and responsive Recipe Search Web App built with **HTML**, **CSS**, **Ja
 ## 🔧 Features
 
 - 🔍 Search for recipes by name
+- 🔽 Filter recipes by category or area
 - 🖼️ View recipe images, categories, and origins
 - 📱 Responsive design using Bootstrap
 - ⚠️ Basic error handling for invalid or empty searches
