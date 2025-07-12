@@ -11,12 +11,19 @@ const detailTags = modal.querySelector('#detail-tags');
 const detailIngredients = modal.querySelector('#detail-ingredients');
 const detailInstructions = modal.querySelector('#detail-instructions');
 
+const alertContainer = document.querySelector('#alert-container');
+
 searchBtn.addEventListener('click', async () => {
     const search = recipeNameInput.value;
     if (search.trim() === '') return;
 
-    const recipes = await getRecipes(search);
-    renderRecipes(recipes);
+    try {
+        const recipes = await getRecipes(search);
+        renderRecipes(recipes);
+    }
+    catch (err) {
+        addAlert(err);
+    }
 });
 
 document.body.addEventListener('click', async (e) => {
@@ -139,4 +146,11 @@ function getInstructions(recipeDetail) {
         instructions += `<p>${instruction}</p>`;
     });
     return instructions;
+}
+
+function addAlert(msg) {
+    alertContainer.innerHTML += `<div class="alert alert-danger alert-dismissible mb-2" role="alert">
+        <div>${msg}</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`
 }
